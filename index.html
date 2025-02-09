@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Милана Smile Journey</title>
+  <style>
+    body {
+      font-family: 'Comic Neue', cursive;
+      background: linear-gradient(135deg, #fff5f5, #ffe8e8);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #5a3a3a;
+      overflow: hidden;
+    }
+    .container {
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+      text-align: center;
+      margin: 20px;
+      border: 3px solid #ffb6c1;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    .container:hover {
+      transform: translateY(-5px);
+    }
+
+    h1 {
+      color: #ff69b4;
+      font-size: 2.8rem;
+      margin: 0 0 1.5rem;
+      text-shadow: 2px 2px 0px #ffffff;
+      position: relative;
+    }
+    h1::after {
+      content: "✨";
+      position: absolute;
+      right: -40px;
+      top: -10px;
+      font-size: 2rem;
+      animation: sparkle 2s infinite;
+    }
+    p {
+      font-size: 1.3rem;
+      color: #7a5a5a;
+      line-height: 1.6;
+      margin: 1rem 0;
+    }
+    button {
+      background: linear-gradient(135deg, #ff85a2, #ff69b4);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 2rem auto 0;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+    }
+    button::before {
+      content: "➡️";
+      font-size: 1.2rem;
+    }
+
+    #page-1 { background: linear-gradient(45deg, #fff0f5, #ffe4e1); }
+    #page-2 { background: linear-gradient(45deg, #f0fff5, #e1ffe4); }
+    #page-3 { background: linear-gradient(45deg, #f0f5ff, #e1e4ff); }
+    #page-4 { background: linear-gradient(45deg, #fff8f0, #fff4e1); }
+
+    .heart-emoji {
+      font-size: 3rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    img {
+      width: 150px;
+      height: 150px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+    }
+
+    /* Анимации */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 20px;
+      background: #ffe5ec;
+      border-radius: 10px;
+      margin: 2rem auto;
+      overflow: hidden;
+    }
+
+    .progress {
+      width: 30%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff85a2, #ff69b4);
+      transition: width 1s ease;
+    }
+
+    .decorative-hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff69b4;
+      animation: heartFall linear infinite;
+    }
+
+    @keyframes heartFall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="page-1">
+    <h1>Ты прекрасна с брекетами! 💖</h1>
+    <p>Твоя улыбка — настоящее солнышко! 🌞</p>
+    <div class="heart-emoji">😊💕</div>
+    <button onclick="goToPage(2)">Продолжить</button>
+  </div>
+
+  <div class="container hidden" id="page-2">
+    <h1>Цитата дня 🌸</h1>
+    <p id="daily-quote">Загружаем вдохновение...</p>
+    <div class="progress-bar"><div class="progress"></div></div>
+    <button onclick="goToPage(3)">Далее</button>
+  </div>
+
+  <div class="container hidden" id="page-3">
+    <h1>Таймер до идеальной улыбки ⏳</h1>
+    <p id="smile-countdown">⏳ Вычисляем время...</p>
+    <div class="heart-emoji">💗</div>
+    <button onclick="goToPage(4)">Посмотреть сюрприз!</button>
+  </div>
+
+  <div class="container hidden" id="page-4">
+    <h1>Сюрприз для тебя! 🎁</h1>
+    <img src="2.png" alt="Милая картинка" id="tornado-image">
+    <p>Ты восхитительна каждый день! 💐</p>
+    <div class="decorative-hearts"></div>
+  </div>
+
+  <script>
+    function goToPage(pageNumber) {
+      const pages = document.querySelectorAll('.container');
+      pages.forEach(page => page.classList.add('hidden'));
+      const nextPage = document.getElementById(`page-${pageNumber}`);
+      nextPage.classList.remove('hidden');
+      
+      if(pageNumber === 4) {
+        expandImage();
+        createHearts();
+      }
+      if(pageNumber === 2) {
+        document.querySelector('.progress').style.width = '70%';
+      }
+    }
+
+    const quotes = [
+      "🌸 Твоя улыбка делает мир ярче!",
+      "💎 Брекеты — это бриллианты для твоих зубок!",
+      "🌈 Ты сияешь как радуга!",
+      "🎀 Каждый день твоя улыбка становится совершеннее!",
+      "🦄 Ты прекраснее единорога в радуге!"
+    ];
+    document.getElementById('daily-quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+
+    const targetDate = new Date('2025-07-05');
+    
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      
+      document.getElementById('smile-countdown').innerHTML = `
+        ⏳ Осталось:<br>
+        📅 ${days} дней<br>
+        ⏰ ${hours} часов<br>
+        ⏱️ ${minutes} минут<br>
+        🎀 ${seconds} секунд
+      `;
+      
+      if(diff > 0) setTimeout(updateCountdown, 1000);
+    }
+    updateCountdown();
+
+    function expandImage() {
+      const img = document.getElementById('tornado-image');
+      img.style.width = '80%';
+      img.style.height = 'auto';
+      img.style.borderRadius = '20px';
+      img.style.transform = 'translate(-50%, -50%) scale(1.1)';
+    }
+
+    function createHearts() {
+      const heartsContainer = document.querySelector('.decorative-hearts');
+      for(let i = 0; i < 50; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+        heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+        heartsContainer.appendChild(heart);
+      }
+    }
+  </script>
+</body>
+</html>
